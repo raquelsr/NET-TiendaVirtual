@@ -15,11 +15,11 @@
 </head>
 <body>
     <div>
-        <h1>Pedido:  @Html.DisplayFor(model => model.Id)</h1>
+        <h1>Número de orden: @Html.DisplayFor(model => model.Id)</h1>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Productos)
+                @Html.DisplayNameFor(model => model.Productos):
             </dt>
 
             <dd>
@@ -27,7 +27,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Fecha)
+                @Html.DisplayNameFor(model => model.Fecha):
             </dt>
 
             <dd>
@@ -35,7 +35,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.TotalProductos)
+                @Html.DisplayNameFor(model => model.TotalProductos):
             </dt>
 
             <dd>
@@ -43,15 +43,15 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.TotalPrecio)
+                @Html.DisplayNameFor(model => model.TotalPrecio):
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.TotalPrecio)
+               @Html.DisplayFor(model => model.TotalPrecio) €
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.NombreProductos)
+                @Html.DisplayNameFor(model => model.NombreProductos):
             </dt>
 
             <dd>
@@ -59,7 +59,7 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.AspNetUser.Email)
+                @Html.DisplayNameFor(model => model.AspNetUser.Email):
             </dt>
 
             <dd>
