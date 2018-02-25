@@ -252,10 +252,15 @@
     </Content>
     <None Include="Resources\carrito.png" />
     <None Include="Resources\ofertas.png" />
-    <None Include="Resources\android.jpg" />
-    <None Include="Resources\java.jpg" />
     <None Include="Resources\html.jpg" />
     <None Include="Resources\angular.jpg" />
+    <None Include="Resources\arduino.jpg" />
+    <None Include="Resources\google2.jpg" />
+    <None Include="Resources\hacker.jpg" />
+    <None Include="Resources\android.jpg" />
+    <None Include="Resources\java.jpg" />
+    <None Include="Resources\google.jpg" />
+    <None Include="Resources\fondo.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Practica_TiendaVirtual.edmx">

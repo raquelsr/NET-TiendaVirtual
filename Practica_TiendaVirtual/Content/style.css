@@ -1,4 +1,8 @@
-﻿.jumbotron {
+﻿body{
+    background-image: url("../Resources/fondo.jpg");
+}
+
+.jumbotron {
     color: #000000;
     background-color: #F2F5A9;
     margin-top: 1%;
