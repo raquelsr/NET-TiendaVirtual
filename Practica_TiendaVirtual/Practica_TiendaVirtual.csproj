@@ -191,6 +191,7 @@
     <Compile Include="Controllers\APIRest\PedidosController.cs" />
     <Compile Include="Controllers\APIRest\ProductosController.cs" />
     <Compile Include="Controllers\APIRest\UsersController.cs" />
+    <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PedidosController.cs" />
@@ -322,7 +323,7 @@
     <Content Include="Views\Productos\Details.cshtml" />
     <Content Include="Views\Productos\Edit.cshtml" />
     <Content Include="Views\Productos\Index.cshtml" />
-    <Content Include="Views\Productos\Carrito.cshtml" />
+    <Content Include="Views\Carrito\carrito.cshtml" />
     <Content Include="Views\Pedidos\Create.cshtml" />
     <Content Include="Views\Pedidos\Delete.cshtml" />
     <Content Include="Views\Pedidos\Details.cshtml" />

@@ -4,7 +4,7 @@
 
 .jumbotron {
     color: #000000;
-    background-color: #F2F5A9;
+    background-color: #EDC769;
     margin-top: 1%;
     text-align: center;
     border: #000000 3px solid;
@@ -42,8 +42,12 @@ h3, h1{
     text-align: center;
     border-color: #F2F5A9;
     border: #000000 3px solid;
-    background-color: #F2F5A9;
+    background-color: #EDC769;
     color: #000000;
+}
+
+#precio{
+    font-weight: bold !important;
 }
 
 #conocenos {
