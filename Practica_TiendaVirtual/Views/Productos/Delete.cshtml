@@ -1,0 +1,66 @@
+﻿@model Practica_TiendaVirtual.Producto
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Eliminar</title>
+</head>
+<body>
+    <div>
+        <h1>Producto : @Html.DisplayFor(model => model.Nombre)</h1>
+        <hr />
+        <h3>¿Estás seguro que desea eliminar este producto?</h3>
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Precio)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Precio)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Cantidad)
+            </dd>
+        </dl>
+
+        @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" />  
+            @Html.ActionLink("Volver", "Index", null, null, new { @class = "btn btn-primary" })
+        </div>
+}
+    </div>
+</body>
+</html>

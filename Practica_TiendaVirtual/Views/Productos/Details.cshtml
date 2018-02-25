@@ -1,0 +1,61 @@
+﻿@model Practica_TiendaVirtual.Producto
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Detalles Producto";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Detalles Producto</title>
+</head>
+<body>
+    <div id="details">
+        <h1>Producto: @Html.DisplayFor(model => model.Nombre)</h1>
+        <hr />
+        <img src="~/Resources/@(Html.DisplayFor(model => model.Nombre_imagen)).jpg" width="100" />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombre) :
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Descripcion) :
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Precio) :
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Precio) €
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Cantidad) :
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Cantidad)
+            </dd> 
+        </dl>
+    </div>
+    <div id="details">
+        <p>
+            @Html.ActionLink("Volver", "Index", null, null, new { @class = "btn btn-primary" })
+        </p>
+    </div>
+</body>
+</html>

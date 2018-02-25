@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Practica_TiendaVirtual.Producto>
+@using Microsoft.AspNet.Identity
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Carrito</title>
+</head>
+<body>
+    <div id="details">
+        <h1>¡ Hola, @User.Identity.GetUserName() ! </h1>
+        <h3>
+            Tienes un total de  @(Model.Count()) productos en el carrito.
+        </h3>
+
+        @foreach (var item in Model)
+    {
+        int c = 0;
+        foreach (var item2 in Model)
+        {
+            if (item.Id == item2.Id)
+            {
+                c++;
+            }
+        }
+        if (item.Cantidad == c)
+        {
+        <div class="alert alert-danger">
+            No puedes añadir más elementos de ese producto al carrito porque no quedan en stock.<br />
+            Pronto volveremos a tener más a su disponibilidad. Disculpe las molestias.
+        </div>
+        break;
+    }
+}
+
+        <br />
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <img src="~/Resources/@(item.Nombre_imagen).jpg" width="100">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio) €
+            </td>          
+            <td>
+                @Html.ActionLink("Eliminar", "eliminarProductoCarrito", null, new { id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+        }
+
+    </table>
+
+    <div id="details">
+        @Html.ActionLink("Seguir comprando", "Index", null, null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Confirmar pedido", "confirmarPedido", null, null, new { @class = "btn btn-primary" })
+    </div>
+
+</body>
+</html>

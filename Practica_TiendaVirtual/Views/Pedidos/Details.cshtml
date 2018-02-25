@@ -1,0 +1,77 @@
+﻿@model Practica_TiendaVirtual.Pedido
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Detalles Pedido";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Detalles pedido</title>
+</head>
+<body>
+    <div>
+        <h1>Pedido:  @Html.DisplayFor(model => model.Id)</h1>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Productos)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Productos)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Fecha)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalProductos)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalProductos)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalPrecio)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TotalPrecio)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NombreProductos)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NombreProductos)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AspNetUser.Email)
+            </dd>
+
+        </dl>
+    </div>
+    <div id="details">
+        <p>
+            @Html.ActionLink("Volver", "Index", null, null, new { @class = "btn btn-primary" })
+        </p>
+    </div>
+</body>
+</html>

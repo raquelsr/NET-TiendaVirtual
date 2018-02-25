@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Practica_TiendaVirtual.Producto>
+@using Microsoft.AspNet.Identity
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Productos";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Productos</title>
+</head>
+<body>
+    <h1>Los más vendidos</h1>
+    <hr />
+    <div id="details">
+        <p>
+            @if (User.Identity.Name.Equals("admin@admin.com"))
+    {
+        @Html.ActionLink("Nuevo producto", "Create", null, null, new { @class = "btn btn-info" })
+}
+            @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Ver carrito", "carrito", null, null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Ver pedidos", "pedidos", null, null, new { @class = "btn btn-primary" })
+
+}
+        </p>
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <th>
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <img src="~/Resources/@(item.Nombre_imagen).jpg" width="100">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @if (item.Cantidad == 0)
+                {
+                    <p id="agotado">¡Agotado!</p>
+                }
+                else
+                {
+                     @Html.DisplayFor(modelItem => item.Cantidad)
+                }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio) €
+            </td>
+            <td>
+                @if (Request.IsAuthenticated)
+    {
+        if (User.Identity.Name.Equals("admin@admin.com"))
+        {
+            @Html.ActionLink("Editar", "Edit", null, new { id = item.Id }, new { @class = "btn btn-warning" }) 
+            
+            @Html.ActionLink("Eliminar", "Delete", null, new { id = item.Id }, new { @class = "btn btn-danger" })
+}
+}
+                @Html.ActionLink("Ver detalles", "Details", null, new { id = item.Id }, new { @class = "btn btn-info" })
+                <br />
+                <br />
+                @if (item.Cantidad == 0)
+                {
+                    <p id="agotado">Próximamente en stock.</p>
+                }
+                else
+                {
+                    @Html.ActionLink("Añadir al carrito", "anadirCarrito", null, new { id = item.Id }, new { @class = "btn btn-success" })
+                }
+            </td>
+        </tr>
+        }
+
+    </table>
+</body>
+</html>
