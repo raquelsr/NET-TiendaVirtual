@@ -17,56 +17,77 @@
     <div>
         <h1>Número de orden: @Html.DisplayFor(model => model.Id)</h1>
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Productos):
-            </dt>
+        <div class="col-md-6">
+            @{ 
+                string[] productos = Model.Productos.Split(';');
+                for (int i = 1; i < productos.Length; i++)
+                {
+                    <img src="~/Resources/@(productos[i]).jpg" width="100" />
+                }
+            }
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    Productos:
+                <dd>
+                    @{
+                        string[] nombreProductos = Model.NombreProductos.Split(';');
+                        List<string> list = new List<string>();
+                        string texto = "";
+                        for (int i = 1; i < nombreProductos.Length; i++)
+                        {
+                            if (list.Count() == 0)
+                            {
+                                texto = nombreProductos[i];
+                                list.Add(nombreProductos[i]);
+                            }
+                            else
+                            {
+                                if (!list.Contains(nombreProductos[i]))
+                                {
+                                    texto = texto + " , " + nombreProductos[i];
+                                    list.Add(nombreProductos[i]);
+                                }
+                            }
+                        }
+                    }
+                    @texto
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Fecha):
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Productos)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Fecha)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Fecha):
-            </dt>
+                <dt>
+                    Total productos:
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Fecha)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.TotalProductos)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TotalProductos):
-            </dt>
+                <dt>
+                    Precio total:
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.TotalProductos)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.TotalPrecio) €
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AspNetUser.Email):
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TotalPrecio):
-            </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AspNetUser.Email)
+                </dd>
 
-            <dd>
-               @Html.DisplayFor(model => model.TotalPrecio) €
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.NombreProductos):
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.NombreProductos)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.AspNetUser.Email):
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.AspNetUser.Email)
-            </dd>
-
-        </dl>
+            </dl>
+        </div>
+      
     </div>
     <div id="details">
         <p>
