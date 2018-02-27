@@ -17,6 +17,7 @@ namespace Practica_TiendaVirtual.Controllers
             Producto p = db.Productos.Find(id);
 
             List<Producto> totalProductos = cc.FindAll(x => x.Id == id);
+
             if (totalProductos.Count() + 1 <= p.Cantidad)
             {
                 cc.Add(p);
@@ -56,7 +57,6 @@ namespace Practica_TiendaVirtual.Controllers
         [Authorize]
         public ActionResult confirmarPedido(CarritoCompra cc)
         {
-
             if (cc.Count() > 0)
             {
                 Pedido pedido = new Pedido();
@@ -78,6 +78,11 @@ namespace Practica_TiendaVirtual.Controllers
 
                     Producto p = producto.First();
                     p.Cantidad--;
+
+                    ProductosPedido pp = new ProductosPedido();
+                    pp.Producto = p;
+                    pp.Pedido = pedido;
+                    db.ProductosPedidoes.Add(pp);
                 }
 
                 var users = from user in db.AspNetUsers

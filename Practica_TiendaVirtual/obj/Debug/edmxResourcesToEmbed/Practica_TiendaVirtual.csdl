@@ -11,6 +11,7 @@
     <Property Name="Cantidad" Type="Int32" Nullable="false" />
     <Property Name="Nombre_imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Url_imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ProductosPedidoes" Relationship="Model.FK_ProductosPedido_ToProductos" FromRole="Producto" ToRole="ProductosPedido" />
   </EntityType>
   <EntityContainer Name="TiendaVirtualEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Productos" EntityType="Self.Producto" />
@@ -19,6 +20,15 @@
     <AssociationSet Name="FK_Pedido_ToAspNetUsers" Association="Model.FK_Pedido_ToAspNetUsers">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="Pedido" EntitySet="Pedidoes" />
+    </AssociationSet>
+    <EntitySet Name="ProductosPedidoes" EntityType="Model.ProductosPedido" />
+    <AssociationSet Name="FK_ProductosPedido_ToPedido" Association="Model.FK_ProductosPedido_ToPedido">
+      <End Role="Pedido" EntitySet="Pedidoes" />
+      <End Role="ProductosPedido" EntitySet="ProductosPedidoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductosPedido_ToProductos" Association="Model.FK_ProductosPedido_ToProductos">
+      <End Role="Producto" EntitySet="Productos" />
+      <End Role="ProductosPedido" EntitySet="ProductosPedidoes" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="AspNetUser">
@@ -51,6 +61,7 @@
     <Property Name="TotalPrecio" Type="Double" />
     <Property Name="NombreProductos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="AspNetUser" Relationship="Model.FK_Pedido_ToAspNetUsers" FromRole="Pedido" ToRole="AspNetUser" />
+    <NavigationProperty Name="ProductosPedidoes" Relationship="Model.FK_ProductosPedido_ToPedido" FromRole="Pedido" ToRole="ProductosPedido" />
   </EntityType>
   <Association Name="FK_Pedido_ToAspNetUsers">
     <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -61,6 +72,40 @@
       </Principal>
       <Dependent Role="Pedido">
         <PropertyRef Name="Id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ProductosPedido">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id_producto" Type="Int32" Nullable="false" />
+    <Property Name="Id_pedido" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Pedido" Relationship="Model.FK_ProductosPedido_ToPedido" FromRole="ProductosPedido" ToRole="Pedido" />
+    <NavigationProperty Name="Producto" Relationship="Model.FK_ProductosPedido_ToProductos" FromRole="ProductosPedido" ToRole="Producto" />
+  </EntityType>
+  <Association Name="FK_ProductosPedido_ToPedido">
+    <End Type="Model.Pedido" Role="Pedido" Multiplicity="1" />
+    <End Type="Model.ProductosPedido" Role="ProductosPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductosPedido">
+        <PropertyRef Name="Id_pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductosPedido_ToProductos">
+    <End Type="Model.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="Model.ProductosPedido" Role="ProductosPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductosPedido">
+        <PropertyRef Name="Id_producto" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

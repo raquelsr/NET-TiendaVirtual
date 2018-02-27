@@ -225,6 +225,9 @@
     <Compile Include="Producto.cs">
       <DependentUpon>Practica_TiendaVirtual.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductosPedido.cs">
+      <DependentUpon>Practica_TiendaVirtual.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -252,7 +255,6 @@
       <LastGenOutput>Practica_TiendaVirtual.cs</LastGenOutput>
     </Content>
     <None Include="Resources\carrito.png" />
-    <None Include="Resources\ofertas.png" />
     <None Include="Resources\html.jpg" />
     <None Include="Resources\angular.jpg" />
     <None Include="Resources\arduino.jpg" />

@@ -45,5 +45,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ProductosPedidoes">
+      <EntityTypeMapping TypeName="Model.ProductosPedido">
+        <MappingFragment StoreEntitySet="ProductosPedido">
+          <ScalarProperty Name="Id_pedido" ColumnName="Id_pedido" />
+          <ScalarProperty Name="Id_producto" ColumnName="Id_producto" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

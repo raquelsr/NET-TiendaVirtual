@@ -14,6 +14,12 @@ namespace Practica_TiendaVirtual
     
     public partial class Producto
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Producto()
+        {
+            this.ProductosPedidoes = new HashSet<ProductosPedido>();
+        }
+    
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
@@ -21,5 +27,8 @@ namespace Practica_TiendaVirtual
         public int Cantidad { get; set; }
         public string Nombre_imagen { get; set; }
         public string Url_imagen { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductosPedido> ProductosPedidoes { get; set; }
     }
 }

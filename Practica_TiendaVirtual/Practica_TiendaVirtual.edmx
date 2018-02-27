@@ -46,6 +46,14 @@
           <Property Name="Nombre_imagen" Type="varchar" MaxLength="50" />
           <Property Name="Url_imagen" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="ProductosPedido">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_producto" Type="int" Nullable="false" />
+          <Property Name="Id_pedido" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Pedido_ToAspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
@@ -58,13 +66,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductosPedido_ToPedido">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+          <End Role="ProductosPedido" Type="Self.ProductosPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductosPedido">
+              <PropertyRef Name="Id_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductosPedido_ToProductos">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+          <End Role="ProductosPedido" Type="Self.ProductosPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductosPedido">
+              <PropertyRef Name="Id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductosPedido" EntityType="Self.ProductosPedido" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Pedido_ToAspNetUsers" Association="Self.FK_Pedido_ToAspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductosPedido_ToPedido" Association="Self.FK_ProductosPedido_ToPedido">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="ProductosPedido" EntitySet="ProductosPedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductosPedido_ToProductos" Association="Self.FK_ProductosPedido_ToProductos">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="ProductosPedido" EntitySet="ProductosPedido" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -82,6 +123,7 @@
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
           <Property Name="Nombre_imagen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Url_imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProductosPedidoes" Relationship="Model.FK_ProductosPedido_ToProductos" FromRole="Producto" ToRole="ProductosPedido" />
         </EntityType>
         <EntityContainer Name="TiendaVirtualEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Productos" EntityType="Self.Producto" />
@@ -90,6 +132,15 @@
           <AssociationSet Name="FK_Pedido_ToAspNetUsers" Association="Model.FK_Pedido_ToAspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Pedido" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <EntitySet Name="ProductosPedidoes" EntityType="Model.ProductosPedido" />
+          <AssociationSet Name="FK_ProductosPedido_ToPedido" Association="Model.FK_ProductosPedido_ToPedido">
+            <End Role="Pedido" EntitySet="Pedidoes" />
+            <End Role="ProductosPedido" EntitySet="ProductosPedidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductosPedido_ToProductos" Association="Model.FK_ProductosPedido_ToProductos">
+            <End Role="Producto" EntitySet="Productos" />
+            <End Role="ProductosPedido" EntitySet="ProductosPedidoes" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetUser">
@@ -122,6 +173,7 @@
           <Property Name="TotalPrecio" Type="Double" />
           <Property Name="NombreProductos" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Model.FK_Pedido_ToAspNetUsers" FromRole="Pedido" ToRole="AspNetUser" />
+          <NavigationProperty Name="ProductosPedidoes" Relationship="Model.FK_ProductosPedido_ToPedido" FromRole="Pedido" ToRole="ProductosPedido" />
         </EntityType>
         <Association Name="FK_Pedido_ToAspNetUsers">
           <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="1" />
@@ -132,6 +184,40 @@
             </Principal>
             <Dependent Role="Pedido">
               <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductosPedido">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_producto" Type="Int32" Nullable="false" />
+          <Property Name="Id_pedido" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pedido" Relationship="Model.FK_ProductosPedido_ToPedido" FromRole="ProductosPedido" ToRole="Pedido" />
+          <NavigationProperty Name="Producto" Relationship="Model.FK_ProductosPedido_ToProductos" FromRole="ProductosPedido" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK_ProductosPedido_ToPedido">
+          <End Type="Model.Pedido" Role="Pedido" Multiplicity="1" />
+          <End Type="Model.ProductosPedido" Role="ProductosPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductosPedido">
+              <PropertyRef Name="Id_pedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductosPedido_ToProductos">
+          <End Type="Model.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="Model.ProductosPedido" Role="ProductosPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductosPedido">
+              <PropertyRef Name="Id_producto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -185,6 +271,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProductosPedidoes">
+            <EntityTypeMapping TypeName="Model.ProductosPedido">
+              <MappingFragment StoreEntitySet="ProductosPedido">
+                <ScalarProperty Name="Id_pedido" ColumnName="Id_pedido" />
+                <ScalarProperty Name="Id_producto" ColumnName="Id_producto" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -207,11 +302,14 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram DiagramId="17f9f61e7c7a4f3082dd88f88c9259a8" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="17f9f61e7c7a4f3082dd88f88c9259a8" Name="Diagram1" ZoomLevel="98">
         <EntityTypeShape EntityType="Model.Producto" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="2.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUser" Width="1.5" PointX="7" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Pedido" Width="1.5" PointX="4.75" PointY="0.75" />
         <AssociationConnector Association="Model.FK_Pedido_ToAspNetUsers" />
+        <EntityTypeShape EntityType="Model.ProductosPedido" Width="1.5" PointX="2.75" PointY="1.25" />
+        <AssociationConnector Association="Model.FK_ProductosPedido_ToPedido" />
+        <AssociationConnector Association="Model.FK_ProductosPedido_ToProductos" />
         </Diagram>
     </Diagrams>
   </Designer>

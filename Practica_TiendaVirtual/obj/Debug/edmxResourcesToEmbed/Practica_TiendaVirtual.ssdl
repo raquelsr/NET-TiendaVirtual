@@ -41,6 +41,14 @@
     <Property Name="Nombre_imagen" Type="varchar" MaxLength="50" />
     <Property Name="Url_imagen" Type="varchar(max)" />
   </EntityType>
+  <EntityType Name="ProductosPedido">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_producto" Type="int" Nullable="false" />
+    <Property Name="Id_pedido" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="FK_Pedido_ToAspNetUsers">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
@@ -53,13 +61,46 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProductosPedido_ToPedido">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+    <End Role="ProductosPedido" Type="Self.ProductosPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductosPedido">
+        <PropertyRef Name="Id_pedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductosPedido_ToProductos">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="1" />
+    <End Role="ProductosPedido" Type="Self.ProductosPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductosPedido">
+        <PropertyRef Name="Id_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="ModelStoreContainer">
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductosPedido" EntityType="Self.ProductosPedido" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Pedido_ToAspNetUsers" Association="Self.FK_Pedido_ToAspNetUsers">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Pedido" EntitySet="Pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductosPedido_ToPedido" Association="Self.FK_ProductosPedido_ToPedido">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="ProductosPedido" EntitySet="ProductosPedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductosPedido_ToProductos" Association="Self.FK_ProductosPedido_ToProductos">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="ProductosPedido" EntitySet="ProductosPedido" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
