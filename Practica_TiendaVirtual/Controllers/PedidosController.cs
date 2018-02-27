@@ -116,7 +116,12 @@ namespace Practica_TiendaVirtual.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Pedido pedido = db.Pedidoes.Find(id);
+            var pedidos = from p in db.ProductosPedidoes
+                          where p.Pedido.Id == pedido.Id
+                          select p;
+            db.ProductosPedidoes.RemoveRange(pedidos);
             db.Pedidoes.Remove(pedido);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
