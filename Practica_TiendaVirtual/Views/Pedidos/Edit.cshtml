@@ -18,7 +18,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h1>Número de orden: @Html.DisplayFor(model => model.Id)</h1>
+            <h1>Pedido : @Html.DisplayFor(model => model.Id)</h1>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
